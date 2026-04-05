@@ -3,7 +3,7 @@ import CustomBottom from './CustomBottom'
 
 const Navbar = () => {
   return (
-   <header className='flex px-20 py-3 justify-between items-center bg-white shadow-md '>
+   <header className='flex px-20 py-2 justify-between items-center bg-white shadow-md '>
     {/* left part */}
      <div>
       <h1 className='text-2xl font-bold text-gray-600 hover:text-gray-400 cursor-pointer'>
