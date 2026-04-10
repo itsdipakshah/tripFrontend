@@ -1,41 +1,147 @@
-import React from 'react'
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
+import React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
+import * as z from "zod";
 
-const formSchema =z.object({
-    name: z.string().min(3,"Name must be at least 3 character."),
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Car } from "lucide-react";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+const formSchema = z
+  .object({
+    name: z.string().min(3, "Name must be at least 3 character."),
     email: z.string().email(),
-    password: z.string().min(8,"Password must be 8 character"),
-    confirmPassword: z.string().min(8,"Password must be 8 character"),
-}).refine((data)=>{
-       data.password=== data.confirmPassword
-},
-{
-    message:"Password don't match",
-    path: ["confirmPassword"]
-})
+    password: z.string().min(8, "Password must be 8 character"),
+    confirmPassword: z.string().min(8, "Password must be 8 character"),
+  })
+  .refine(
+    (data) => {
+     return data.password === data.confirmPassword;
+    },
+    {
+      message: "Password don't match",
+      path: ["confirmPassword"],
+    },
+  );
 
 const Register = () => {
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
 
-    const form =useForm({
-        resolver:zodResolver(formSchema),
-        defaultValues:{
-            name:"",
-            email:"",
-            password:"",
-            confirmPassword:"",
-        }
-    });
-
-    const onSubmit =(data)=>{
-          console.log(data)
-    }
+  const onSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
-     <form onSubmit={form.handleSubmit(onSubmit)}></form>
-    
-  )
-}
+    <form  onSubmit={form.handleSubmit(onSubmit)}>
+      <Card className="w-1/4 mx-auto mt-40">
+        <CardHeader>
+          <CardTitle className="flex justify-center">Registration Form</CardTitle>
+          <CardDescription className="flex justify-center ">
+            Enter you valid Details to get started.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <Controller
+            name="name"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>Name</FieldLabel>
+                <Input type="text"
+                placeholder="Jhon Deo"
+                  {...field}
+                  id={field.name}
+                  aria-invalid={fieldState.invalid}
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+         />
 
-export default Register
+          <Controller
+            name="email"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>Email</FieldLabel>
+                <Input type="email" placeholder="abc@example.com"
+                  {...field}
+                  id={field.name}
+                  aria-invalid={fieldState.invalid}
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+         />
+
+         <Controller
+            name="password"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>Password</FieldLabel>
+                <Input type="password" 
+                placeholder="*******"
+                  {...field}
+                  id={field.name}
+                  aria-invalid={fieldState.invalid}
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+         />
+
+         <Controller
+            name="confirmPassword"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel htmlFor={field.name}>Confirm Password</FieldLabel>
+                <Input type="password"
+                placeholder="*******"
+                  {...field}
+                  id={field.name}
+                  aria-invalid={fieldState.invalid}
+                />
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+         />
+
+        </CardContent>
+        <CardFooter>
+            <Button className="w-full" type="submit">Submit</Button>
+        </CardFooter>
+      </Card>
+     
+    </form>
+  );
+};
+
+export default Register;
