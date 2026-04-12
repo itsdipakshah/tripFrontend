@@ -12,10 +12,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Car } from "lucide-react";
+
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import api from "@/api/axios";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z
   .object({
@@ -35,6 +38,7 @@ const formSchema = z
   );
 
 const Register = () => {
+  const navigate = useNavigate();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -45,8 +49,27 @@ const Register = () => {
     },
   });
 
-  const onSubmit = (data) => {
+  const onSubmit =async (data) => {
     console.log(data);
+    const newData = {
+      name:data.name,
+      email:data.email,
+      password:data.password
+    }
+    try {
+      const response =await api.post("/auth/register",newData);
+      console.log(response);
+
+      if(response.data.success){
+        toast.success("Registration successfull");
+        navigate("/login");
+      }else{
+        toast.error("Registration failed ,Try again!")
+      }
+    } catch (error) {
+      console.error("Register fail",error)
+     toast.error("Registration failed ,Try again!")
+    }
   };
 
   return (
@@ -135,8 +158,13 @@ const Register = () => {
          />
 
         </CardContent>
-        <CardFooter>
+        <CardFooter className="block">
             <Button className="w-full" type="submit">Submit</Button>
+            
+            <div className=" text-center mt-3">
+              Already hava an account ?
+              <a className="text-blue-500 ml-2" href="/login">Login</a>
+            </div>
         </CardFooter>
       </Card>
      
