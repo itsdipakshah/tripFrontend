@@ -163,7 +163,7 @@ const Register = () => {
             
             <div className=" text-center mt-3">
               Already hava an account ?
-              <a className="text-blue-500 ml-2" href="/login">Login</a>
+              <a className="text-blue-500 ml-2" href="http://localhost:5173/login">Login</a>
             </div>
         </CardFooter>
       </Card>
