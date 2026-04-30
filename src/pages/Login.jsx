@@ -21,7 +21,8 @@ import {
   FieldError,
   FieldLabel,
 } from "@/components/ui/field";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import useAuth from "@/hooks/useAuth";
 //first i make  a schema of login
 const loginSchema = z.object({
     email: z.string().email(),
@@ -30,6 +31,16 @@ const loginSchema = z.object({
 
 const Login = () => {
   const navigate = useNavigate()
+  const {token , login} = useAuth();
+
+  if (token) {
+    return (
+    <Navigate to="/dashboard" />
+    )
+    
+  }
+
+
   const form = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -52,7 +63,8 @@ const Login = () => {
 
       if (response.data.success) {
         toast.success("Login successfully");
-        navigate("/")
+       login( data , response.data.accessToken)
+        navigate("/dashboard")
       } else {
         toast.error("Login failed,Try again");
       }
@@ -63,8 +75,11 @@ const Login = () => {
   };
 
   return (
+    <div className="bg-[url(https://plus.unsplash.com/premium_photo-1702217998652-b9b795f52d5f?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] h-[100dvh] pt-40 ">
+
+    
     <form onSubmit={form.handleSubmit(onSubmit)}>
-      <Card className="w-1/4 mx-auto mt-40">
+      <Card className="w-1/4 mx-auto">
         <CardHeader>
           <CardTitle className="flex justify-center">
              Login Page
@@ -129,6 +144,7 @@ const Login = () => {
         </CardFooter>
       </Card>
     </form>
+    </div>
   );
 };
 

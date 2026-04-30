@@ -1,20 +1,20 @@
-import React from 'react'
-import CustomBottom from './CustomBottom'
-import { useNavigate } from 'react-router-dom';
 import useAuth from '@/hooks/useAuth';
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
+import CustomBottom from './CustomBottom';
 
-const Navbar = () => {
+
+const AppNavbar = () => {
   const navigate = useNavigate();
-  const {login} = useAuth();
+  const {logout} = useAuth();
 
 
-  const handleLogin =() =>{
-    login();
+  const handleLogout =() =>{
+    logout();
     navigate("/login")
   }
-  
   return (
-   <header className='flex px-20 py-2 justify-between items-center bg-white shadow-md '>
+     <header className='flex px-20 py-2 justify-between items-center bg-white shadow-md '>
     {/* left part */}
      <div>
       <h1 className='text-2xl font-bold text-gray-600 hover:text-gray-400 cursor-pointer'>
@@ -31,13 +31,13 @@ const Navbar = () => {
           <a href="/contact">Contact</a>
           <a href="/help">Help</a>
         </nav>
-        <div  onClick={handleLogin}/>
-       <CustomBottom text="Login"/>
-
+        <div onClick={handleLogout}>
+       <CustomBottom text="Logout"/>
+         </div>
       </div>
 
    </header>
   )
 }
 
-export default Navbar
+export default AppNavbar

@@ -18,7 +18,8 @@ const Hero = () => {
           <p className='text-gray-300 text-2xl mb-8 font-semibold'>Discover the world like never before. From breathtaking landscapes and vibrant cities to hidden gems off the beaten path, we bring you closer to unforgettable travel experiences.
 
 Whether you're planning a relaxing getaway, an adventurous trek, or a cultural journey, our platform helps you explore destinations, find the best deals, and create memories that last a lifetime.</p>
-          <CustomBottom text="Get Started" />
+          <a href="/register">
+          <CustomBottom  text="Get Started" /></a>
         </div>
     </section>
   )
