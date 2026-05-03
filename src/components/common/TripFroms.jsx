@@ -12,33 +12,38 @@ import {
 import { Field, FieldError, FieldLabel } from "../ui/field";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
+import { Button } from "../ui/button";
+import api from "@/api/axios";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
 
 const durationSchema = z.object({
-  days: z.number().positive("Days must be a positive number"),
-  nights: z.number().positive("Nights must be a positive number"),
+  days: z.coerce.number().positive("Days must be a positive number"),
+  nights: z.coerce.number().positive("Nights must be a positive number"),
 });
 
 const formSchema = z.object({
   title: z.string().min(5, "Title must be at least 5 characters"),
   description: z.string().min(10, "Description must be at least 10 characters"),
-  price: z.number().positive("Price must be a positive number"),
+  price: z.coerce.number().positive("Price must be a positive number"),
   duration: durationSchema,
-  startDate: z.date(),
-  endDate: z.date(),
+  startDate: z.coerce.date(),
+  endDate: z.coerce.date(),
   location: z.string().min(3, "Location must be at least 3 characters"),
   maxParticipants: z
-    .number()
+    .coerce.number()
     .positive("Max participants must be a positive number"),
   availableSeats: z
-    .number()
+    .coerce.number()
     .positive("Available seats must be a positive number"),
-  imageUrl: z.file(),
+  imageUrl: z.string(),
 });
 
-const TripForms = () => {
+const TripForms = ({tripData}) => {
+  const navigate =useNavigate();
   const form = useForm({
     resolver: zodResolver(formSchema),
-    defaultValues: {
+    defaultValues: tripData || {
       title: "",
       description: "",
       price: "",
@@ -49,16 +54,32 @@ const TripForms = () => {
       startDate: new Date(),
       endDate: new Date(),
       location: "",
-      maxParticipants: 0,
-      availableSeats: 0,
+      maxParticipants: "",
+      availableSeats: "",
       imageUrl: null,
     },
   });
-  const onSubmit = (data) => {
+  const onSubmit =async (data) => {
+   
     console.log(data);
+    try {
+      const response =await api.post("/trips",data);
+      console.log(response)
+      if (response.status === 201) {
+        toast.success("Trip created successfully");
+        navigate("/trips")
+        
+      }else{
+        toast.error("Failed to create trip.")
+      }
+    } catch (error) {
+     console.log(error);
+     toast.error(error.message || " An error occured while creating the trip")
+      
+    }
   };
   return (
-    <from onSubmit={form.handleSubmit(onSubmit)}>
+    <form onSubmit={form.handleSubmit(onSubmit, (errors) => console.log("Validation Errors:", errors))}>
       <Card>
         <CardHeader>
           <CardTitle>Trip Info</CardTitle>
@@ -164,8 +185,9 @@ const TripForms = () => {
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>StartDate</FieldLabel>
                   <Input
-                    type="number"
+                    type="date"
                     min="0"
+                    placeholder="DD-MM-YYYY"
                     {...field}
                     id={field.name}
                     aria-invalid={fieldState.invalid}
@@ -184,8 +206,9 @@ const TripForms = () => {
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>EndDate</FieldLabel>
                   <Input
-                    type="number"
+                    type="date"
                     min="0"
+                    placeholder="DD-MM-YYYY"
                     {...field}
                     id={field.name}
                     aria-invalid={fieldState.invalid}
@@ -288,10 +311,38 @@ const TripForms = () => {
                 </Field>
               )}
             />
+          
+
+            <Controller
+              name="imageUrl"
+              control={form.control}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel htmlFor={field.name}>Image URl </FieldLabel>
+                  <Input
+                    type="text"
+                    
+                    {...field}
+                    id={field.name}
+                    aria-invalid={fieldState.invalid}
+                  />
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+          
           </div>
         </CardContent>
       </Card>
-    </from>
+
+      <div className="float-right">
+        <Button type="submit"  className={"mt-6"}>
+          Submit
+        </Button>
+      </div>
+    </form>
   );
 };
 

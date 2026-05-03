@@ -10,6 +10,7 @@ import { jwtDecode } from 'jwt-decode'
 import Dashboard from './pages/Dashboard'
 import AppLayout from './Layouts/AppLayout'
 import Addtrip from './trip/Addtrip'
+import Edittrip from './trip/Edittrip'
 
 const App = () => {
   const { token, logout } = useAuth();
@@ -55,6 +56,7 @@ const App = () => {
       <Route element={<ProtectedRoutes/>}>
       <Route path="/dashboard" element={<Dashboard/>}/>
       <Route path="/trips/add" element={<Addtrip/>}/>
+      <Route path="/trips/update" element={<Edittrip/>}/>
 
 
       </Route>
