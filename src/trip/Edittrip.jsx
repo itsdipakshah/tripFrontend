@@ -16,8 +16,8 @@ const Edittrip = () => {
     }
     const newData ={
         ...data,
-        startDate:data.startDate.split('T')[0],
-        endDate:data.endDate.split('T')[0]
+        startDate:data.startTime.split('T')[0],
+        endDate:data.endTime.split('T')[0]
     };
   return (
     <> 
