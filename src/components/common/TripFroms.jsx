@@ -27,8 +27,8 @@ const formSchema = z.object({
   description: z.string().min(10, "Description must be at least 10 characters"),
   price: z.coerce.number().positive("Price must be a positive number"),
   duration: durationSchema,
-  startDate: z.coerce.date(),
-  endDate: z.coerce.date(),
+  startTime: z.coerce.date(),
+  endTime: z.coerce.date(),
   location: z.string().min(3, "Location must be at least 3 characters"),
   maxParticipants: z
     .coerce.number()
@@ -51,15 +51,15 @@ const TripForms = ({tripData}) => {
         days: 0,
         nights: 0,
       },
-      startDate: new Date(),
-      endDate: new Date(),
+      startTime: new Date(),
+      endTime: new Date(),
       location: "",
       maxParticipants: "",
       availableSeats: "",
       imageUrl: null,
     },
   });
-  const onSubmit =async (data) => {
+  const onAdd =async (data) => {
    
     console.log(data);
     try {
@@ -78,8 +78,28 @@ const TripForms = ({tripData}) => {
       
     }
   };
+
+  const onEdit =async (data) => {
+   
+    console.log(data);
+    try {
+      const response =await api.put(`/trips/${tripData._id}`,data);
+      console.log(response)
+      if (response.status === 200) {
+        toast.success("Trip updated successfully");
+        navigate("/trips")
+        
+      }else{
+        toast.error("Failed to update trip.")
+      }
+    } catch (error) {
+     console.log(error);
+     toast.error(error.message || " An error occured while updating the trip")
+      
+    }
+  };
   return (
-    <form onSubmit={form.handleSubmit(onSubmit, (errors) => console.log("Validation Errors:", errors))}>
+    <form onSubmit={form.handleSubmit(tripData ? onEdit : onAdd)}>
       <Card>
         <CardHeader>
           <CardTitle>Trip Info</CardTitle>
@@ -179,11 +199,11 @@ const TripForms = ({tripData}) => {
         <CardContent>
           <div className="grid grid-cols-2 gap-4">
             <Controller
-              name="startDate"
+              name="startTime"
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>StartDate</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>startTime</FieldLabel>
                   <Input
                     type="date"
                     min="0"
@@ -200,11 +220,11 @@ const TripForms = ({tripData}) => {
             />
 
             <Controller
-              name="endDate"
+              name="endTime"
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>EndDate</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>endTime</FieldLabel>
                   <Input
                     type="date"
                     min="0"

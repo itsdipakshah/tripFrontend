@@ -14,6 +14,11 @@ const Edittrip = () => {
     if (loading) {
         return <div>Loading.....</div>
     }
+    const newData ={
+        ...data,
+        startDate:data.startDate.split('T')[0],
+        endDate:data.endDate.split('T')[0]
+    };
   return (
     <> 
     <Card className="w-2/5 mx-auto my-14">
@@ -26,7 +31,7 @@ const Edittrip = () => {
             </CardDescription>
         </CardHeader>
         <CardContent>
-         <TripForms tripData={data} />
+         <TripForms tripData={newData} />
         </CardContent>
     </Card>
 

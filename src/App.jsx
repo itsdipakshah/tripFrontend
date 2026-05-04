@@ -56,7 +56,7 @@ const App = () => {
       <Route element={<ProtectedRoutes/>}>
       <Route path="/dashboard" element={<Dashboard/>}/>
       <Route path="/trips/add" element={<Addtrip/>}/>
-      <Route path="/trips/update" element={<Edittrip/>}/>
+      <Route path="/trips/update/:id" element={<Edittrip/>}/>
 
 
       </Route>
