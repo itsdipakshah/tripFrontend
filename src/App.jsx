@@ -11,6 +11,7 @@ import Dashboard from './pages/Dashboard'
 import AppLayout from './Layouts/AppLayout'
 import Addtrip from './trip/Addtrip'
 import Edittrip from './trip/Edittrip'
+import Trips from './trip/Trips'
 
 const App = () => {
   const { token, logout } = useAuth();
@@ -57,6 +58,7 @@ const App = () => {
       <Route path="/dashboard" element={<Dashboard/>}/>
       <Route path="/trips/add" element={<Addtrip/>}/>
       <Route path="/trips/update/:id" element={<Edittrip/>}/>
+      <Route path="/trips" element={<Trips />}/>
 
 
       </Route>
