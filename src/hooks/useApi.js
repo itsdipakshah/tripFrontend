@@ -10,6 +10,8 @@ const useApi = (endpoint, options = {}, deps = []) => {
 
   useEffect(() => {
     let mounted = true;
+    setData(null);
+    setError(null);
     setLoading(true);
 
 
