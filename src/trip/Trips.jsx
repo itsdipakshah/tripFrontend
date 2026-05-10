@@ -16,22 +16,32 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 import useApi from "@/hooks/useApi";
 import { Edit, Eye, Plus, Trash2 } from "lucide-react";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
+import { Field } from "@/components/ui/field";
 
 const Trips = () => {
-
-    const [dependency ,setDependency] = useState(0);
+  const [dependency, setDependency] = useState(0);
   function formatDate(isoString) {
     const date = new Date(isoString);
     return date.toDateString();
   }
   const navigate = useNavigate();
 
-  const { data, error, loading } = useApi("/trips", {} ,[dependency]);
+  const { data, error, loading } = useApi("/trips", {}, [dependency]);
 
   if (loading) {
     return <div>Loaging...</div>;
@@ -43,7 +53,7 @@ const Trips = () => {
       console.log(response);
       if (response.status === 200) {
         toast.success("Trip deleted successfully!");
-        setDependency(prev => prev+1)
+        setDependency((prev) => prev + 1);
       } else {
         toast.error("Failed to delete trips,Try again");
       }
@@ -82,48 +92,69 @@ const Trips = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {
-              data && data.length == 0 ?
-              <div className="text-center py-10">No trips found , Please add new trips</div>
-              :
-              data.map((trip, index) => {
-                return (
-                  <TableRow key={trip._id}>
-                    <TableCell>{index + 1}</TableCell>
-                    <TableCell className={"uppercase"}>{trip.title}</TableCell>
-                    <TableCell>{trip.location}</TableCell>
-                    <TableCell>{formatDate(trip.startTime)}</TableCell>
-                    <TableCell>₹ {trip.price}</TableCell>
-                    <TableCell className={"space-x-1"}>
-                      <Button
-                        size="icon"
-                        variant="outline"
-                        className={"text-blue-600 hover:bg-blue-300"}
-                      >
-                        <Eye />
-                      </Button>
-                      <Button
-                      onClick={()=>{navigate(`/trips/update/${trip._id}`)}}
-                        size="icon"
-                        variant="outline"
-                        className={"text-green-500 hover:bg-green-300"}
-                      >
-                        <Edit />
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          handleDelete(trip._id);
-                        }}
-                        size="icon"
-                        variant="outline"
-                        className={"text-red-500 hover:bg-red-300"}
-                      >
-                        <Trash2 />
-                      </Button>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+              {data && data.length == 0 ? (
+                <div className="text-center py-10">
+                  No trips found , Please add new trips
+                </div>
+              ) : (
+                data.map((trip, index) => {
+                  return (
+                    <TableRow key={trip._id}>
+                      <TableCell>{index + 1}</TableCell>
+                      <TableCell className={"uppercase"}>
+                        {trip.title}
+                      </TableCell>
+                      <TableCell>{trip.location}</TableCell>
+                      <TableCell>{formatDate(trip.startTime)}</TableCell>
+                      <TableCell>₹ {trip.price}</TableCell>
+                      <TableCell className={"space-x-1"}>
+                        <Dialog>
+                          <DialogTrigger>
+                            <Button
+                              size="icon"
+                              variant="outline"
+                              className={"text-blue-600 hover:bg-blue-300"}
+                            >
+                              <Eye />
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent>
+                            <DialogHeader>
+                              <DialogTitle className={"flex justify-center"}>
+                              {trip.title}
+                              </DialogTitle>
+                              <DialogDescription className={"flex justify-center"}>
+                               {trip.description}
+                              </DialogDescription>
+                            </DialogHeader> 
+                          </DialogContent>
+                        </Dialog>
+
+                        <Button
+                          onClick={() => {
+                            navigate(`/trips/update/${trip._id}`);
+                          }}
+                          size="icon"
+                          variant="outline"
+                          className={"text-green-500 hover:bg-green-300"}
+                        >
+                          <Edit />
+                        </Button>
+                        <Button
+                          onClick={() => {
+                            handleDelete(trip._id);
+                          }}
+                          size="icon"
+                          variant="outline"
+                          className={"text-red-500 hover:bg-red-300"}
+                        >
+                          <Trash2 />
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  );
+                })
+              )}
             </TableBody>
           </Table>
         </CardContent>

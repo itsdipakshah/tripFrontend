@@ -1,6 +1,6 @@
 import React from 'react'
 import CustomBottom from './CustomBottom'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '@/hooks/useAuth';
 
 const Navbar = () => {
@@ -32,7 +32,11 @@ const Navbar = () => {
           <a href="/help">Help</a>
         </nav>
         <div  onClick={handleLogin}/>
-       <CustomBottom text="Login"/>
+         <a href="/login"></a>
+       <CustomBottom text="Login" />
+       
+      
+       
 
       </div>
 

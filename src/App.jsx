@@ -12,6 +12,7 @@ import AppLayout from './Layouts/AppLayout'
 import Addtrip from './trip/Addtrip'
 import Edittrip from './trip/Edittrip'
 import Trips from './trip/Trips'
+import ViewTrips from './pages/client/ViewTrips'
 
 const App = () => {
   const { token, logout } = useAuth();
@@ -22,7 +23,7 @@ const App = () => {
       const decodedToken = token ? jwtDecode(token) : null;
       const userId = decodedToken?.userId;
 
-
+//token expire vayo ki kaso yo check hudai xa
       if (decodedToken && decodedToken.exp) {
         const currentTime = Date.now() / 1000;
         if (currentTime > decodedToken?.exp) {
@@ -31,14 +32,14 @@ const App = () => {
         }
       }
 
-
+//token xa ki nai tyo check hudai xa
       if (!token || !userId) {
         logout();
         return <Navigate to="/login" />;
       }
 
 
-      return <AppLayout />;
+      return <AppLayout role={decodedToken.role} />;
     } catch (err) {
       console.error(err);
       logout();
@@ -55,11 +56,19 @@ const App = () => {
        <Route path='/login' element={<Login/>}/>
 
       <Route element={<ProtectedRoutes/>}>
+
+      {/* for admin */}
       <Route path="/dashboard" element={<Dashboard/>}/>
       <Route path="/trips/add" element={<Addtrip/>}/>
       <Route path="/trips/update/:id" element={<Edittrip/>}/>
       <Route path="/trips" element={<Trips />}/>
 
+      {/* for client */}
+
+
+
+      <Route path='/client/trips' element={<ViewTrips/>} />
+      
 
       </Route>
 

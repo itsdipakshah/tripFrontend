@@ -1,8 +1,22 @@
 import AppNavbar from '@/components/common/AppNavbar'
 import React from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLocation } from 'react-router-dom'
 
-const AppLayout = () => {
+const AppLayout = ({role}) => {
+  const adminRoutes = ['/dashboard','/trips','/trips/add', '/trips/update/:id'];
+  const clientRouts =['/client/dashboard','/client/trips']
+  const pathname= useLocation().pathname;
+
+  if (role === 'admin' && !adminRoutes.some(route => pathname.startsWith(route))) {
+    return <div>Unauthorized Access</div>
+  }
+ 
+  if (role === 'user' && !clientRouts.some(route=> pathname.startsWith(route))) {
+    return <div>Unauthorized Access</div>
+  }
+ 
+
+
   return (
    <>
    <AppNavbar/>
