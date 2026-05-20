@@ -13,6 +13,8 @@ import Addtrip from './trip/Addtrip'
 import Edittrip from './trip/Edittrip'
 import Trips from './trip/Trips'
 import ViewTrips from './pages/client/ViewTrips'
+import Booking from './pages/bookings/Booking'
+import MyBookings from './pages/client/MyBookings'
 
 const App = () => {
   const { token, logout } = useAuth();
@@ -62,15 +64,19 @@ const App = () => {
       <Route path="/trips/add" element={<Addtrip/>}/>
       <Route path="/trips/update/:id" element={<Edittrip/>}/>
       <Route path="/trips" element={<Trips />}/>
+      <Route path='/bookings' element={<Booking/>} />
 
       {/* for client */}
 
 
 
       <Route path='/client/trips' element={<ViewTrips/>} />
+      <Route path='/client/bookings' element={<MyBookings/>} />
       
 
       </Route>
+
+      <Route path='*' element={<div>Not found</div>} />
 
       
     </Routes>
