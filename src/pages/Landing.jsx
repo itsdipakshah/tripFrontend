@@ -4,6 +4,7 @@ import Hero from '../components/LandingComponents/Hero';
 import Features from '../components/LandingComponents/Features';
 import AboutMe from '../components/LandingComponents/AboutMe';
 import FAQ from '@/components/LandingComponents/FAQ';
+import Contact from '@/components/LandingComponents/Contact';
 
 
 const Landing = () => {
@@ -13,6 +14,7 @@ const Landing = () => {
       <Hero/>
       <Features/>
       <AboutMe/>
+      <Contact/>
       <FAQ/>
     </div>
   )

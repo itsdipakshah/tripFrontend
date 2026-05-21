@@ -33,7 +33,7 @@ const Navbar = () => {
         </nav>
         <div  onClick={handleLogin}/>
          <a href="/login"></a>
-       <CustomBottom text="Login" />
+       <a href="/login"><CustomBottom text="Login" /></a>
        
       
        

@@ -36,6 +36,7 @@ const AppNavbar = () => {
                 <a href="/dashboard">Dashboard</a>
                 <a href="/trips">Trips</a>
                 <a href="/bookings">Bookings</a>
+                <a href="/contacts-list">Contact</a>
                 <a href="/blogs">Blogs</a>
               </>
               :
