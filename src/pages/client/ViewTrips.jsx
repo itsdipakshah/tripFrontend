@@ -72,12 +72,12 @@ const ViewTrips = () => {
           data.map((trip, index) => {
             return (
               <Card key={trip._id || index}>
-                <CardHeader className={"border-b "}>
+                <CardHeader className={"border-b flex justify-center items-center flex-col"}>
                   <div>
                     <img
-                      src="https://plus.unsplash.com/premium_photo-1661961791283-18b14a3a0083?q=80&w=1186&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                      src={trip.imageUrl}
                       alt="tripsImage"
-                      className="rounded-md"
+                      className="rounded-md w-auto h-full object-cover "
                     />
                   </div>
                   <CardTitle>{trip.title}</CardTitle>

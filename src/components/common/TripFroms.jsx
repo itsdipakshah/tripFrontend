@@ -2,6 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import z from "zod";
+import {AdvancedImage} from '@cloudinary/react';
+import {Cloudinary} from "@cloudinary/url-gen";
 import {
   Card,
   CardContent,
@@ -40,6 +42,13 @@ const formSchema = z.object({
 });
 
 const TripForms = ({tripData}) => {
+
+   const cld = new Cloudinary({
+    cloud: {
+      cloudName: 'ders6k4it'
+    }
+  });
+
   const navigate =useNavigate();
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -98,6 +107,39 @@ const TripForms = ({tripData}) => {
       
     }
   };
+
+
+
+  const handleImageUpload = async (e) => {
+       const file = e.target.files[0];
+       if(!file){
+        toast.error("Please select an image to upload.")
+       }
+
+       const formData = new FormData();
+       formData.append("file",file);
+       formData.append("upload_preset","trips_preset");
+       formData.append("cloud_name","ders6k4it");
+
+       const response = await fetch("https://api.cloudinary.com/v1_1/ders6k4it/image/upload",{
+        method:"POST",
+        body:formData
+       });
+
+       const uploadedData = await response.json();
+       const imageUrl = uploadedData.secure_url;
+       form.setValue("imageUrl",imageUrl);
+       if(response.ok){
+        toast.success("Image uploaded successfully.")
+       } else{
+        toast.error("Failed to upload image.")
+       }
+
+       conslole.log(file);
+
+  }
+
+
   return (
     <form onSubmit={form.handleSubmit(tripData ? onEdit : onAdd)}>
       <Card>
@@ -352,10 +394,14 @@ const TripForms = ({tripData}) => {
                 </Field>
               )}
             />
+           <Input type="file" onChange={handleImageUpload} />
+           <AdvancedImage/>
+
           
           </div>
         </CardContent>
       </Card>
+      
 
       <div className="float-right">
         <Button type="submit"  className={"mt-6"}>
