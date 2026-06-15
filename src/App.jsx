@@ -16,6 +16,7 @@ import ViewTrips from './pages/client/ViewTrips'
 import Booking from './pages/bookings/Booking'
 import MyBookings from './pages/client/MyBookings'
 import ContactList from './pages/contact/ContactList'
+import Blogs from './pages/client/Blogs'
 
 const App = () => {
   const { token, logout } = useAuth();
@@ -74,6 +75,7 @@ const App = () => {
 
       <Route path='/client/trips' element={<ViewTrips/>} />
       <Route path='/client/bookings' element={<MyBookings/>} />
+      <Route path='/client/blogs' element={<Blogs/>} />
       
 
       </Route>
