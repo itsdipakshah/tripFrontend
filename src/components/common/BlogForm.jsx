@@ -31,7 +31,7 @@ const formSchema = z.object({
   bannerUrl: z.string(),
 });
 
-const BlogForm = ({blogData}) => {
+const BlogForm = ({ blogData }) => {
   const cld = new Cloudinary({
     cloud: {
       cloudName: "ders6k4it",
@@ -45,8 +45,8 @@ const BlogForm = ({blogData}) => {
       title: "",
       content: "",
       publishDate: new Date(),
-        excerpt: "",
-        slug: "",
+      excerpt: "",
+      slug: "",
       bannerUrl: null,
     },
   });
@@ -80,7 +80,9 @@ const BlogForm = ({blogData}) => {
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.message || " An error occured while updating the blogs");
+      toast.error(
+        error.message || " An error occured while updating the blogs",
+      );
     }
   };
 
@@ -104,8 +106,8 @@ const BlogForm = ({blogData}) => {
     );
 
     const uploadedData = await response.json();
-    const imageUrl = uploadedData.secure_url;
-    form.setValue("imageUrl", imageUrl);
+    const bannerUrl = uploadedData.secure_url;
+    form.setValue("bannerUrl", bannerUrl);
     if (response.ok) {
       toast.success("Image uploaded successfully.");
     } else {
@@ -170,8 +172,7 @@ const BlogForm = ({blogData}) => {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor={field.name}>Excerpt</FieldLabel>
-                  <Input
-                   
+                  <Textarea
                     type="text"
                     placeholder="something about the blog"
                     {...field}
@@ -186,14 +187,13 @@ const BlogForm = ({blogData}) => {
             />
 
             <Controller
-              name="location"
+              name="slug"
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Location</FieldLabel>
-                  <Input
+                  <FieldLabel htmlFor={field.name}>slug</FieldLabel>
+                  <Textarea
                     type="text"
-                    placeholder="Eg, Sunsari,Chimdi"
                     {...field}
                     id={field.name}
                     aria-invalid={fieldState.invalid}
@@ -204,23 +204,12 @@ const BlogForm = ({blogData}) => {
                 </Field>
               )}
             />
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card className="mt-5">
-        <CardHeader>
-          <CardTitle>Trip Duration</CardTitle>
-          <CardDescription>Enter Trip Duration Details:</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 gap-4">
             <Controller
-              name="startTime"
+              name="publishDate"
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>startTime</FieldLabel>
+                  <FieldLabel htmlFor={field.name}>PublishDate</FieldLabel>
                   <Input
                     type="date"
                     min="0"
@@ -235,126 +224,12 @@ const BlogForm = ({blogData}) => {
                 </Field>
               )}
             />
-
             <Controller
-              name="endTime"
+              name="bannerUrl"
               control={form.control}
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>endTime</FieldLabel>
-                  <Input
-                    type="date"
-                    min="0"
-                    placeholder="DD-MM-YYYY"
-                    {...field}
-                    id={field.name}
-                    aria-invalid={fieldState.invalid}
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
-
-            <Controller
-              name="duration.days"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Days</FieldLabel>
-                  <Input
-                    min="0"
-                    type="number"
-                    placeholder="eg, 5"
-                    {...field}
-                    id={field.name}
-                    aria-invalid={fieldState.invalid}
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
-
-            <Controller
-              name="duration.nights"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Nights</FieldLabel>
-                  <Input
-                    min="0"
-                    type="number"
-                    placeholder="2"
-                    {...field}
-                    id={field.name}
-                    aria-invalid={fieldState.invalid}
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
-          </div>
-        </CardContent>
-      </Card>
-
-      <Card className="mt-6">
-        <CardHeader>
-          <CardTitle>Number of seats</CardTitle>
-          <CardDescription>Enter total seats you want:</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-2 gap-4">
-            <Controller
-              name="maxParticipants"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Max Participants</FieldLabel>
-                  <Input
-                    type="number"
-                    min="0"
-                    {...field}
-                    id={field.name}
-                    aria-invalid={fieldState.invalid}
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
-
-            <Controller
-              name="availableSeats"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Available Seats</FieldLabel>
-                  <Input
-                    type="number"
-                    min="0"
-                    {...field}
-                    id={field.name}
-                    aria-invalid={fieldState.invalid}
-                  />
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
-                </Field>
-              )}
-            />
-
-            <Controller
-              name="imageUrl"
-              control={form.control}
-              render={({ field, fieldState }) => (
-                <Field data-invalid={fieldState.invalid}>
-                  <FieldLabel htmlFor={field.name}>Image URl </FieldLabel>
+                  <FieldLabel htmlFor={field.name}>Banner URl </FieldLabel>
                   <Input
                     type="text"
                     {...field}
@@ -372,10 +247,9 @@ const BlogForm = ({blogData}) => {
           </div>
         </CardContent>
       </Card>
-
       <div className="float-right">
         <Button type="submit" className={"mt-6"}>
-          Submit
+          Post
         </Button>
       </div>
     </form>

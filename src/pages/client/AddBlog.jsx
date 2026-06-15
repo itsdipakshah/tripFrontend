@@ -1,21 +1,20 @@
-import React from 'react'
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import React from 'react'
+import BlogForm from '@/components/common/BlogForm'
 
 const Addblog = () => {
   return (
     <Card className="w-2/5 mx-auto my-14">
         <CardHeader className="justify-center">
             <CardTitle>
-                Add New Trip
+                Add New Blog
             </CardTitle>
             <CardDescription >
-                Create a new trip and share it with your friends!
+                Create a new blog and share it with your friends!
             </CardDescription>
         </CardHeader>
         <CardContent>
-         <TripForms />
+         <BlogForm/>
         </CardContent>
     </Card>
   )
