@@ -2,9 +2,13 @@ import React from 'react'
 import Navbar from '../components/common/Navbar';
 import Hero from '../components/LandingComponents/Hero';
 import Features from '../components/LandingComponents/Features';
-import AboutMe from '../components/LandingComponents/AboutMe';
+
 import FAQ from '@/components/LandingComponents/FAQ';
 import Contact from '@/components/LandingComponents/Contact';
+import About from '@/components/LandingComponents/About';
+import Footer from '@/components/LandingComponents/Footer';
+import Gallery from '@/components/LandingComponents/Gallery';
+import Testimonials from '@/components/LandingComponents/Testimonials';
 
 
 const Landing = () => {
@@ -12,10 +16,14 @@ const Landing = () => {
     <div>
       <Navbar/>
       <Hero/>
+      <About/>
       <Features/>
-      <AboutMe/>
+      <Gallery/>
+      <Testimonials/>
+    
       <Contact/>
       <FAQ/>
+      <Footer/>
     </div>
   )
 }

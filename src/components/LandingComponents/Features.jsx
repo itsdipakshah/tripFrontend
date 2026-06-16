@@ -26,7 +26,7 @@ const Features = () => {
     },
   ]
   return (
-    <section className='px-20 py-16 bg-gray-300 '>
+    <section className='px-20 py-16 bg-white '>
 
         {/* heading */}
         <div>
