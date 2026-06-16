@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 
 import About from './pages/About'
-import Landing from './pages/landing'
+
 import Register from './pages/Register'
 import Login from './pages/Login'
 import useAuth from './hooks/useAuth'
@@ -18,6 +18,7 @@ import MyBookings from './pages/client/MyBookings'
 import ContactList from './pages/contact/ContactList'
 import Blogs from './pages/client/Blogs'
 import Addblog from './pages/client/AddBlog'
+import Landing from './pages/Landing'
 
 const App = () => {
   const { token, logout } = useAuth();
