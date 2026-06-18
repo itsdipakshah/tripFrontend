@@ -52,7 +52,7 @@ const Contact = () => {
   }
 
   return (
-    <section className="bg-blue-50 py-16 md:py-24 lg:py-32">
+    <section id='contact' className="bg-blue-50 py-16 md:py-24 lg:py-32">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-12 text-center md:mb-16">

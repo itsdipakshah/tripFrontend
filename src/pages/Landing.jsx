@@ -20,9 +20,9 @@ const Landing = () => {
       <Features/>
       <Gallery/>
       <Testimonials/>
+      <FAQ/>
     
       <Contact/>
-      <FAQ/>
       <Footer/>
     </div>
   )
