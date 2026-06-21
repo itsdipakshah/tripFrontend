@@ -86,7 +86,7 @@ const Contact = () => {
               </div>
               <div className="flex flex-col gap-1">
                 <h3 className="font-semibold text-foreground">Phone</h3>
-                <p className="text-sm text-muted-foreground">+1 (555) 000-0000</p>
+                <p className="text-sm text-muted-foreground">+977 9803237421</p>
               </div>
             </div>
 
@@ -97,9 +97,9 @@ const Contact = () => {
               <div className="flex flex-col gap-1">
                 <h3 className="font-semibold text-foreground">Address</h3>
                 <p className="text-sm text-muted-foreground">
-                  123 Main Street
+                 Indrani Marge
                   <br />
-                  City, State 12345
+                  Biratnagar, State 53345
                 </p>
               </div>
             </div>

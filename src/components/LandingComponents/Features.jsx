@@ -134,7 +134,7 @@ export default function Features() {
             whileTap={{ scale: 0.95 }}
             className="px-8 py-4 bg-gradient-to-r from-teal-600 to-emerald-600 text-white rounded-full font-semibold hover:shadow-lg transition-shadow"
           >
-            Get Started Free →
+            <a href="/login">Get Started Free →</a>
           </motion.button>
         </motion.div>
       </div>

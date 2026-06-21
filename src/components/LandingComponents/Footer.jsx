@@ -171,17 +171,17 @@ export default function Footer() {
               {
                 icon: Mail,
                 label: 'Email',
-                value: 'support@travelhub.com',
+                value: 'support@ghumphir.com',
               },
               {
                 icon: Phone,
                 label: 'Phone',
-                value: '+1 (555) 123-4567',
+                value: '+977 980123-4567',
               },
               {
                 icon: MapPin,
                 label: 'Office',
-                value: 'San Francisco, CA',
+                value: 'Biratnagar ,Roadcess Chowk',
               },
             ].map((item, idx) => {
               const Icon = item.icon;

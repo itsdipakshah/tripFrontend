@@ -86,7 +86,7 @@ const Register = () => {
 
    
     <form  onSubmit={form.handleSubmit(onSubmit)}>
-      <Card className="w-1/4 mx-auto ">
+      <Card className="md:w-1/4 w-3/4 mx-auto transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl">
         <CardHeader>
           <CardTitle className="flex justify-center">Registration Form</CardTitle>
           <CardDescription className="flex justify-center ">

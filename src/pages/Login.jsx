@@ -78,7 +78,7 @@ const Login = () => {
   return (
     <div className="bg-[url(https://plus.unsplash.com/premium_photo-1702217998652-b9b795f52d5f?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)] h-[100dvh] pt-40 ">
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card className="w-1/4 mx-auto">
+         <Card className="md:w-1/4 w-3/4 mx-auto transition-all duration-300 ease-in-out hover:-translate-y-2 hover:shadow-2xl">
           <CardHeader>
             <CardTitle className="flex justify-center">Login Page</CardTitle>
             <CardDescription className="flex justify-center ">

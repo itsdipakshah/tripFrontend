@@ -84,7 +84,7 @@ export default function Navbar() {
                 onClick={() => scrollToSection('contact')}
                 className="bg-gradient-to-r from-blue-500 to-cyan-400 text-white hover:shadow-lg"
               >
-                Get Started
+                <a href="/login">Get Started</a>
               </Button>
             </motion.div>
           </div>
@@ -120,7 +120,7 @@ export default function Navbar() {
               </button>
             ))}
             <Button className="w-full mt-4 bg-gradient-to-r from-blue-500 to-cyan-400 text-white">
-              Get Started
+              <a href="/login">Login</a>
             </Button>
           </div>
         </motion.div>
